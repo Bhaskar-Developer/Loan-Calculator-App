@@ -1,4 +1,19 @@
-document.querySelector('#loan-form').addEventListener('submit', calculateResults)
+document.querySelector('#loan-form').addEventListener('submit', (e) => {
+  // we will first show the loading gif for 2 seconds. After 2 seconds we will call the calculateResults() method which will remove the loader and then display the result on UI
+
+  //Remove results if present from previous calculations
+  document.querySelector('#results').style.display = 'none'
+
+  //show the loader as soon as calculate is clicked
+  document.querySelector('#loading').style.display = 'block'
+
+  //calculate results and show them on UI after 2 seconds 
+  //we are delaying the calcuateResults function by 2 seconds
+  //This function will also remove the loader
+  setTimeout(calculateResults, 2000)
+
+  e.preventDefault()
+})
 
 
 function calculateResults(e) {
@@ -31,12 +46,16 @@ function calculateResults(e) {
     monthlyPayment.value = monthly.toFixed(2) // show the value with upto 2 decimal places
     totalPayment.value = (monthly * calculatedPayments).toFixed(2)
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
+    //remove loader from UI
+    document.querySelector('#loading').style.display = 'none'
+    //show results on UI
+    document.querySelector('#results').style.display = 'block'
   } else {
+    //Remove results if present from previous calculation
+    document.querySelector('#results').style.display = 'none'
     //show Error on UI
     showError('Please check your inputs!')
   }
-
-  e.preventDefault()
 }
 
 //Show error to UI
@@ -65,9 +84,12 @@ function showError(errorMessage) {
   //this function inserts the error div before heading by using the card as the reference parent
   mainCard.insertBefore(errorDiv, heading)
 
+  //Remove loader as soon as error div is shown
+  document.querySelector('#loading').style.display = 'none'
+
   //remove the error div from the UI after 5 seconds
   //this is done by the setTimeout() window method
-  setTimeout(removeError, 5000) // 5000 here means 5 sec as 5000ms = 5 sec
+  setTimeout(removeError, 3000) // 5000 here means 5 sec as 5000ms = 5 sec
 }
 
 function removeError() {
