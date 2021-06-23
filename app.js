@@ -1,7 +1,7 @@
 document.querySelector('#loan-form').addEventListener('submit', (e) => {
   // we will first show the loading gif for 2 seconds. After 2 seconds we will call the calculateResults() method which will remove the loader and then display the result on UI
 
-  //Remove results if present from previous calculations
+  //Remove result if present from previous calculations
   document.querySelector('#results').style.display = 'none'
 
   //show the loader as soon as calculate is clicked
